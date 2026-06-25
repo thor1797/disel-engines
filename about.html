@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Diesel Technical Solutions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  /* ====================================================
+     TOKENS
+  ==================================================== */
+  :root{
+    --bg:            #0a1628;
+    --bg-soft:       #0d1c33;
+    --surface:       #0f2138;
+    --surface-2:     #122842;
+    --border:        #1d3354;
+    --border-soft:   #16284a;
+    --blue:          #3b82f6;
+    --blue-light:    #60a5fa;
+    --blue-dim:      #2563eb;
+    --text:          #e7edf6;
+    --text-mid:      #aebcd2;
+    --text-dim:      #6f829e;
+    --shadow-glow:   0 0 60px rgba(59,130,246,0.18);
+
+    --font-display:  'Archivo', sans-serif;
+    --font-body:     'Inter', sans-serif;
+    --font-mono:     'JetBrains Mono', monospace;
+
+    --maxw: 1180px;
+    --section-pad: clamp(64px, 9vw, 112px);
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font-body);
+    line-height:1.65;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  
+  /* Shared ambient background */
+  .page-bg{
+    position:fixed;
+    inset:0;
+    z-index:-2;
+    background:
+      radial-gradient(ellipse 900px 600px at 15% -5%, rgba(59,130,246,0.14), transparent 60%),
+      radial-gradient(ellipse 800px 700px at 100% 30%, rgba(37,99,235,0.10), transparent 55%),
+      radial-gradient(ellipse 700px 600px at 10% 90%, rgba(59,130,246,0.08), transparent 55%),
+      linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 50%, var(--bg) 100%);
+  }
+  .grid-overlay{
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse 100% 60% at 50% 0%, black 0%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse 100% 60% at 50% 0%, black 0%, transparent 75%);
+  }
+
+  a{ color:inherit; text-decoration:none; }
+  ul{ list-style:none; }
+  img{ max-width:100%; display:block; }
+
+  .wrap{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding-inline:clamp(20px, 5vw, 32px);
+  }
+
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    font-family:var(--font-mono);
+    font-size:12.5px;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--blue-light);
+    margin-bottom:14px;
+  }
+  .eyebrow::before{
+    content:'';
+    width:7px;height:7px;
+    border-radius:50%;
+    background:var(--blue);
+    box-shadow:0 0 0 3px rgba(59,130,246,0.22);
+  }
+
+  h1,h2,h3,h4{ font-family:var(--font-display); letter-spacing:-0.01em; }
+
+  /* ====================================================
+     REVEAL ON SCROLL
+  ==================================================== */
+  .reveal{
+    opacity:0;
+    transform:translateY(26px);
+    transition:opacity .7s cubic-bezier(.16,.8,.24,1), transform .7s cubic-bezier(.16,.8,.24,1);
+  }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+  .reveal-delay-1{ transition-delay:.08s; }
+  .reveal-delay-2{ transition-delay:.16s; }
+  .reveal-delay-3{ transition-delay:.24s; }
+  .reveal-delay-4{ transition-delay:.32s; }
+
+  @media (prefers-reduced-motion: reduce){
+    .reveal{ opacity:1; transform:none; transition:none; }
+    *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; }
+  }
+
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:8px;
+    font-family:var(--font-body); font-weight:600; font-size:14.5px;
+    padding:11px 22px;
+    border-radius:9px;
+    cursor:pointer;
+    border:1px solid transparent;
+    transition:transform .22s ease, box-shadow .22s ease, background .22s ease, border-color .22s ease;
+    white-space:nowrap;
+  }
+  .btn-primary{
+    background:linear-gradient(135deg, var(--blue) 0%, var(--blue-dim) 100%);
+    color:#fff;
+    box-shadow:0 6px 20px rgba(59,130,246,0.35);
+  }
+  .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 10px 26px rgba(59,130,246,0.48); }
+  .btn-ghost{
+    background:transparent;
+    color:var(--text);
+    border-color:var(--border);
+  }
+  .btn-ghost:hover{ border-color:var(--blue-light); color:var(--blue-light); transform:translateY(-2px); }
+
+  /* ====================================================
+     PULSE LINE
+  ==================================================== */
+  .pulse-wrap{
+    width:100%;
+    overflow:hidden;
+    line-height:0;
+  }
+  .pulse-wrap svg{ width:100%; display:block; }
+  .pulse-line{
+    fill:none;
+    stroke:var(--blue);
+    stroke-width:1.6;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+    filter:drop-shadow(0 0 6px rgba(59,130,246,0.5));
+    stroke-dasharray:1900;
+    stroke-dashoffset:1900;
+    animation:draw-pulse 2.6s cubic-bezier(.4,0,.2,1) forwards;
+  }
+  @keyframes draw-pulse{ to{ stroke-dashoffset:0; } }
+
+  .divider-pulse{
+    position:relative;
+    height:64px;
+    width:100%;
+    opacity:0.55;
+  }
+  .divider-pulse svg{ width:100%; height:100%; }
+  .divider-pulse .pulse-line{
+    stroke-width:1.2;
+    animation:draw-pulse-divider 2.4s cubic-bezier(.4,0,.2,1) forwards;
+  }
+  @keyframes draw-pulse-divider{ to{ stroke-dashoffset:0; } }
+
+  /* ====================================================
+     SECTION SCAFFOLD
+  ==================================================== */
+  section{ position:relative; padding-block:var(--section-pad); }
+
+  .section-head{ max-width:640px; margin-bottom:52px; }
+  .section-head.center{ margin-inline:auto; text-align:center; }
+  .section-head h2{
+    font-size:clamp(30px, 3.6vw, 42px);
+    font-weight:800;
+    line-height:1.12;
+  }
+  .section-head p{ margin-top:14px; color:var(--text-mid); font-size:16.5px; }
+
+  /* ====================================================
+     WHO WE ARE
+  ==================================================== */
+  .who-we-are-first{
+    padding-top:clamp(56px, 9vw, 96px);
+  }
+  .who-we-are-first .opener-pulse{
+    margin-bottom:clamp(36px, 6vw, 56px);
+  }
+  .who{
+    display:grid;
+    grid-template-columns:1.05fr 0.95fr;
+    gap:clamp(32px, 6vw, 72px);
+    align-items:center;
+  }
+  .who-content .eyebrow{ margin-bottom:16px; }
+  .who-content h2{
+    font-size:clamp(28px, 3.4vw, 40px);
+    font-weight:800;
+    line-height:1.15;
+    margin-bottom:20px;
+  }
+  .who-content p{ color:var(--text-mid); font-size:16px; margin-bottom:14px; }
+  .who-content p:last-of-type{ margin-bottom:0; }
+
+  .who-visual{
+    position:relative;
+    border-radius:18px;
+    border:1px solid var(--border);
+    background:linear-gradient(160deg, var(--surface) 0%, var(--surface-2) 100%);
+    aspect-ratio:4/3.1;
+    overflow:hidden;
+    box-shadow:0 24px 60px -20px rgba(0,0,0,0.6);
+  }
+  .who-visual svg{ width:100%; height:100%; }
+  .who-visual::after{
+    content:'';
+    position:absolute; inset:0;
+    background:linear-gradient(160deg, rgba(59,130,246,0.10), transparent 50%);
+    pointer-events:none;
+  }
+  .who-badge{
+    position:absolute;
+    bottom:18px; left:18px;
+    display:flex; align-items:center; gap:10px;
+    background:rgba(10,22,40,0.82);
+    border:1px solid var(--border);
+    backdrop-filter:blur(8px);
+    padding:10px 14px;
+    border-radius:11px;
+    font-family:var(--font-mono);
+    font-size:12px;
+    color:var(--text-mid);
+  }
+  .who-badge .dot{
+    width:7px;height:7px;border-radius:50%;
+    background:#34d399;
+    box-shadow:0 0 0 3px rgba(52,211,153,0.22);
+    animation:blink 2.2s ease-in-out infinite;
+  }
+  @keyframes blink{ 0%,100%{opacity:1;} 50%{opacity:.4;} }
+
+  /* ====================================================
+     MISSION / VISION CARDS
+  ==================================================== */
+  .mv-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:24px;
+  }
+  .mv-card{
+    background:linear-gradient(160deg, var(--surface) 0%, var(--surface-2) 100%);
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:clamp(28px, 4vw, 40px);
+    position:relative;
+    overflow:hidden;
+    transition:transform .35s cubic-bezier(.16,.8,.24,1), border-color .35s ease, box-shadow .35s ease;
+  }
+  .mv-card::before{
+    content:'';
+    position:absolute; inset:0;
+    background:radial-gradient(circle at 85% -10%, rgba(59,130,246,0.16), transparent 55%);
+    opacity:0; transition:opacity .4s ease;
+  }
+  .mv-card:hover{
+    transform:translateY(-6px);
+    border-color:rgba(96,165,250,0.4);
+    box-shadow:0 20px 44px -16px rgba(59,130,246,0.28);
+  }
+  .mv-card:hover::before{ opacity:1; }
+  .mv-icon{
+    width:50px;height:50px;
+    border-radius:13px;
+    display:flex;align-items:center;justify-content:center;
+    background:rgba(59,130,246,0.12);
+    border:1px solid rgba(59,130,246,0.28);
+    margin-bottom:22px;
+    position:relative; z-index:1;
+  }
+  .mv-icon svg{ width:24px;height:24px; stroke:var(--blue-light); }
+  .mv-card h3{ font-size:21px; font-weight:700; margin-bottom:12px; position:relative; z-index:1; }
+  .mv-card p{ color:var(--text-mid); font-size:15.5px; position:relative; z-index:1; }
+
+  /* ====================================================
+     WHY CHOOSE US
+  ==================================================== */
+  .feat-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:1px;
+    background:var(--border);
+    border:1px solid var(--border);
+    border-radius:18px;
+    overflow:hidden;
+  }
+  .feat-card{
+    background:var(--bg-soft);
+    padding:clamp(26px, 3.2vw, 34px);
+    transition:background .3s ease;
+    position:relative;
+  }
+  .feat-card:hover{ background:var(--surface); }
+  .feat-card:hover .feat-icon{ background:rgba(59,130,246,0.18); border-color:rgba(96,165,250,0.45); transform:scale(1.06); }
+  .feat-icon{
+    width:42px;height:42px;
+    border-radius:11px;
+    background:rgba(59,130,246,0.1);
+    border:1px solid rgba(59,130,246,0.22);
+    display:flex;align-items:center;justify-content:center;
+    margin-bottom:18px;
+    transition:transform .3s ease, background .3s ease, border-color .3s ease;
+  }
+  .feat-icon svg{ width:21px;height:21px; stroke:var(--blue-light); }
+  .feat-card h3{ font-size:17px; font-weight:700; margin-bottom:9px; }
+  .feat-card p{ font-size:14.5px; color:var(--text-mid); }
+
+  /* ====================================================
+     CORE SERVICES
+  ==================================================== */
+  .services-list{ display:flex; flex-direction:column; gap:18px; }
+  .service-row{
+    display:grid;
+    grid-template-columns:auto 1fr auto;
+    gap:28px;
+    align-items:center;
+    background:linear-gradient(120deg, var(--surface) 0%, var(--bg-soft) 100%);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:clamp(22px, 3vw, 32px);
+    transition:border-color .3s ease, transform .3s ease, box-shadow .3s ease;
+  }
+  .service-row:hover{
+    border-color:rgba(96,165,250,0.38);
+    transform:translateX(4px);
+    box-shadow:0 16px 36px -18px rgba(59,130,246,0.28);
+  }
+  .service-tag{
+    font-family:var(--font-mono);
+    font-size:12px;
+    color:var(--blue-light);
+    background:rgba(59,130,246,0.1);
+    border:1px solid rgba(59,130,246,0.25);
+    padding:7px 12px;
+    border-radius:8px;
+    white-space:nowrap;
+    letter-spacing:0.04em;
+  }
+  /* Amber variant for paid service tag */
+  .service-tag.tag-paid{
+    color:#fbbf24;
+    background:rgba(251,191,36,0.1);
+    border-color:rgba(251,191,36,0.28);
+  }
+  .service-body h3{ font-size:19.5px; font-weight:700; margin-bottom:7px; }
+  .service-body p{ font-size:15px; color:var(--text-mid); max-width:640px; }
+  .service-arrow{
+    width:38px;height:38px;
+    border-radius:50%;
+    border:1px solid var(--border);
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+    transition:background .3s ease, border-color .3s ease, transform .3s ease;
+  }
+  .service-row:hover .service-arrow{
+    background:var(--blue);
+    border-color:var(--blue);
+    transform:rotate(45deg);
+  }
+  .service-arrow svg{ width:16px;height:16px; stroke:var(--text-mid); transition:stroke .3s ease; }
+  .service-row:hover .service-arrow svg{ stroke:#fff; }
+
+  /* Paid service call-out badge */
+  .paid-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    font-family:var(--font-mono);
+    font-size:11.5px;
+    color:#fbbf24;
+    background:rgba(251,191,36,0.08);
+    border:1px solid rgba(251,191,36,0.22);
+    padding:5px 10px;
+    border-radius:6px;
+    margin-top:10px;
+    letter-spacing:0.04em;
+  }
+  .paid-badge svg{ width:13px;height:13px; stroke:#fbbf24; flex-shrink:0; }
+
+  /* ====================================================
+     COMMITMENT / CTA BAND
+  ==================================================== */
+  .commit{
+    border-radius:24px;
+    background:linear-gradient(135deg, var(--surface) 0%, #0c1f3a 60%, var(--surface-2) 100%);
+    border:1px solid var(--border);
+    padding:clamp(40px, 6vw, 64px);
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+  .commit::before{
+    content:'';
+    position:absolute;
+    width:480px;height:480px;
+    background:radial-gradient(circle, rgba(59,130,246,0.22), transparent 70%);
+    top:-220px; right:-160px;
+    pointer-events:none;
+  }
+  .commit h2{
+    font-size:clamp(26px, 3.4vw, 36px);
+    font-weight:800;
+    margin-bottom:16px;
+    position:relative; z-index:1;
+  }
+  .commit p{
+    color:var(--text-mid);
+    font-size:16px;
+    max-width:600px;
+    margin:0 auto 30px;
+    position:relative; z-index:1;
+  }
+  .commit .cta-row{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; position:relative; z-index:1; }
+
+  /* ====================================================
+     RESPONSIVE
+  ==================================================== */
+  @media (max-width:980px){
+    .who{ grid-template-columns:1fr; }
+    .who-visual{ order:-1; }
+    .feat-grid{ grid-template-columns:repeat(2, 1fr); }
+  }
+
+  @media (max-width:760px){
+    .mv-grid{ grid-template-columns:1fr; }
+    .feat-grid{ grid-template-columns:1fr; }
+    .service-row{ grid-template-columns:1fr; text-align:left; }
+    .service-arrow{ display:none; }
+    .service-tag{ width:fit-content; }
+  }
+
+  @media (max-width:480px){
+    section{ padding-block:56px; }
+    .commit{ padding:32px 22px; }
+  }
+</style>
+</head>
+<body>
+<header class="site-header">
+    <div class="navbar container">
+        <div class="brand">
+            <a class="logo" href="index.html">
+                <img src="logo.jpg" alt="Logo">
+            </a>
+            <div class="website-name">Diesel Technical Solutions</div>
+        </div>
+
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+                <li class="dropdown">
+    <a href="#">Services ▾</a>
+
+    <ul class="dropdown-menu">
+        <li><a href="AMC.html">Annual Maintenance Contracts</a></li>
+        <li><a href="paid.html">On-Call & Pay-Per-Visit Support</a></li>
+        <li><a href="servicecenter.html">Service Centre Support</a></li>
+    </ul>
+</li>
+                <li><a href="contactpage.html">Contact</a></li>
+            </ul>
+        </nav>
+
+        <button class="cta-header">Get a Quote</button>
+        <button class="menu-toggle">☰</button>
+    </div>
+</header>
+<div class="page-bg"></div>
+<div class="grid-overlay"></div>
+
+<main>
+  <!-- ===================== WHO WE ARE ===================== -->
+  <section id="who-we-are" class="who-we-are-first">
+    <div class="wrap">
+      <div class="opener-pulse pulse-wrap">
+        <svg viewBox="0 0 1200 56" preserveAspectRatio="none">
+          <path class="pulse-line" d="M0,28 L160,28 L195,28 L215,4 L240,52 L262,28 L300,28 L450,28 L480,28 L500,8 L520,48 L540,28 L580,28 L760,28 L790,28 L810,4 L832,52 L854,28 L900,28 L1200,28"/>
+        </svg>
+      </div>
+    </div>
+    <div class="wrap who">
+      <div class="who-content reveal">
+        <div class="eyebrow">Who We Are</div>
+        <h2>Technical expertise customers can plan around.</h2>
+        <p>Diesel Technical Solutions is committed to delivering reliable maintenance and technical support services for industrial machinery and equipment.</p>
+        <p>Our focus is on ensuring uninterrupted operations through preventive maintenance, professional service support, and extended protection programs that give customers peace of mind and long-term value.</p>
+        <p>We understand the importance of equipment reliability in today's industrial environment — so we work diligently to provide efficient service solutions that reduce downtime, improve productivity, and maintain operational excellence.</p>
+      </div>
+      <div class="who-visual reveal reveal-delay-2">
+        <svg viewBox="0 0 480 380" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <linearGradient id="genBody" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#1d3a63"/>
+              <stop offset="100%" stop-color="#102441"/>
+            </linearGradient>
+            <linearGradient id="genPanel" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#0d1f37"/>
+              <stop offset="100%" stop-color="#15294a"/>
+            </linearGradient>
+          </defs>
+          <rect x="0" y="0" width="480" height="380" fill="transparent"/>
+          <ellipse cx="240" cy="320" rx="190" ry="22" fill="#3b82f6" opacity="0.08"/>
+          <rect x="90" y="150" width="300" height="130" rx="10" fill="url(#genBody)" stroke="#2a4570" stroke-width="1.5"/>
+          <rect x="90" y="150" width="300" height="20" rx="6" fill="#234269"/>
+          <rect x="115" y="172" width="86" height="80" rx="6" fill="url(#genPanel)" stroke="#2a4570"/>
+          <rect x="128" y="184" width="60" height="14" rx="2" fill="#3b82f6" opacity="0.55"/>
+          <circle cx="138" cy="222" r="6" fill="#34d399"/>
+          <circle cx="160" cy="222" r="6" fill="#f59e0b"/>
+          <circle cx="182" cy="222" r="6" fill="#3b82f6"/>
+          <rect x="128" y="236" width="60" height="6" rx="3" fill="#1d3a63"/>
+          <g stroke="#2a4570" stroke-width="2">
+            <line x1="225" y1="178" x2="370" y2="178"/>
+            <line x1="225" y1="190" x2="370" y2="190"/>
+            <line x1="225" y1="202" x2="370" y2="202"/>
+            <line x1="225" y1="214" x2="370" y2="214"/>
+            <line x1="225" y1="226" x2="370" y2="226"/>
+            <line x1="225" y1="238" x2="370" y2="238"/>
+          </g>
+          <rect x="80" y="278" width="320" height="16" rx="4" fill="#0d2038" stroke="#2a4570"/>
+          <g>
+            <circle cx="320" cy="118" r="14" fill="#e7edf6" opacity="0.92"/>
+            <rect x="306" y="132" width="28" height="46" rx="9" fill="#3b82f6"/>
+            <rect x="296" y="150" width="14" height="40" rx="6" fill="#3b82f6" transform="rotate(18 303 170)"/>
+            <rect x="330" y="150" width="14" height="34" rx="6" fill="#3b82f6" transform="rotate(-30 337 167)"/>
+            <rect x="308" y="174" width="12" height="40" rx="5" fill="#10233f"/>
+            <rect x="324" y="174" width="12" height="40" rx="5" fill="#10233f"/>
+            <rect x="298" y="100" width="44" height="13" rx="6" fill="#f5b942"/>
+          </g>
+          <rect x="362" y="258" width="46" height="28" rx="4" fill="#15294a" stroke="#2a4570"/>
+          <rect x="376" y="250" width="18" height="10" rx="3" fill="#15294a" stroke="#2a4570"/>
+        </svg>
+        <div class="who-badge"><span class="dot"></span> Service engineer on-site</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap"><div class="divider-pulse pulse-wrap">
+    <svg viewBox="0 0 1200 64" preserveAspectRatio="none">
+      <path class="pulse-line" d="M0,32 L300,32 L330,32 L350,8 L372,56 L394,32 L440,32 L760,32 L790,32 L810,4 L832,60 L854,32 L900,32 L1200,32"/>
+    </svg>
+  </div></div>
+
+  <!-- ===================== MISSION / VISION ===================== -->
+  <section id="mission-vision">
+    <div class="wrap">
+      <div class="mv-grid">
+        <div class="mv-card reveal">
+          <div class="mv-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L4 6v6c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V6l-8-4z"/></svg>
+          </div>
+          <h3>Our Mission</h3>
+          <p>To provide dependable maintenance and technical support solutions through quality service, professional expertise, and customer-focused practices that maximize equipment reliability and performance.</p>
+        </div>
+        <div class="mv-card reveal reveal-delay-2">
+          <div class="mv-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/></svg>
+          </div>
+          <h3>Our Vision</h3>
+          <p>To become a trusted leader in industrial service and support solutions by delivering excellence, innovation, and long-term value to our customers.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== WHY CHOOSE US ===================== -->
+  <section id="why-us">
+    <div class="wrap">
+      <div class="section-head center reveal">
+        <div class="eyebrow" style="justify-content:center;">Why Choose Us</div>
+        <h2>Built for fewer breakdowns, faster fixes.</h2>
+        <p>Seven reasons customers stay with Diesel Technical Solutions year after year.</p>
+      </div>
+
+      <div class="feat-grid reveal reveal-delay-1">
+        <div class="feat-card">
+          <div class="feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 4.8L20 8l-4 4 1 5.6L12 15l-5 2.6 1-5.6-4-4 5.6-1.2z"/></svg></div>
+          <h3>Experienced Technical Professionals</h3>
+          <p>Skilled engineers bring industry knowledge and practical expertise to every service assignment.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9"/><path d="M3 12h6l-3-3M3 12l3 3"/></svg></div>
+          <h3>Reliable AMC Support</h3>
+          <p>Structured maintenance programs that help reduce breakdowns and improve equipment lifespan.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/><path d="M9 12l2 2 4-4"/></svg></div>
+          <h3>Extended Warranty Protection</h3>
+          <p>Our Ashwashan Extended Warranty Program offers added coverage beyond standard warranty periods.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18M8 19h8"/></svg></div>
+          <h3>Dedicated Service Centre Assistance</h3>
+          <p>Professional diagnostics, repairs, and technical support for fast, effective problem resolution.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21a8 8 0 1 0-16 0"/><circle cx="12" cy="8" r="5"/></svg></div>
+          <h3>Customer-Focused Approach</h3>
+          <p>We prioritize customer requirements and deliver tailored service solutions for operational needs.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></div>
+          <h3>Quick Response &amp; Support</h3>
+          <p>Our team is committed to providing prompt assistance whenever support is required.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap"><div class="divider-pulse pulse-wrap">
+    <svg viewBox="0 0 1200 64" preserveAspectRatio="none">
+      <path class="pulse-line" d="M0,32 L300,32 L330,32 L350,8 L372,56 L394,32 L440,32 L760,32 L790,32 L810,4 L832,60 L854,32 L900,32 L1200,32"/>
+    </svg>
+  </div></div>
+
+  <!-- ===================== CORE SERVICES ===================== -->
+  <section id="core-services">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">Our Core Services</div>
+        <h2>Three ways we keep your equipment running.</h2>
+      </div>
+
+      <div class="services-list reveal reveal-delay-1">
+
+      <!-- AMC -->
+<div class="service-row">
+  <span class="service-tag">AMC</span>
+  <div class="service-body">
+    <h3>Annual Maintenance Contracts</h3>
+    <p>Scheduled inspections, preventive maintenance, performance monitoring, and technical support — designed to minimize unexpected failures and maximize uptime throughout the year.</p>
+  </div>
+  <a href="AMC.html" class="service-arrow">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+  </a>
+</div>
+
+<!-- Paid / Call-Based Service -->
+<div class="service-row">
+  <span class="service-tag tag-paid">PAID SERVICE</span>
+  <div class="service-body">
+    <h3>On-Call &amp; Pay-Per-Visit Support</h3>
+    <p>Need a technician without a long-term contract? We offer flexible paid service visits — from one-off diagnostics and repairs to on-call support billed per visit. Fast mobilisation, transparent pricing, no commitment required.</p>
+    <span class="paid-badge">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92V19a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 11.39 17a19.42 19.42 0 0 1-4-4 19.79 19.79 0 0 1-4-8.43A2 2 0 0 1 5.37 2h2.08a2 2 0 0 1 2 1.72c.13.96.35 1.9.67 2.81a2 2 0 0 1-.45 2.11L8.54 9.77a16 16 0 0 0 6 6l1.13-1.13a2 2 0 0 1 2.11-.45c.91.32 1.85.54 2.81.67A2 2 0 0 1 22 16.92z"/></svg>
+      Call us to book a visit
+    </span>
+  </div>
+  <a href="paid.html" class="service-arrow">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+  </a>
+</div>
+
+<!-- Service Centre -->
+<div class="service-row">
+  <span class="service-tag">SERVICE CENTRE</span>
+  <div class="service-body">
+    <h3>Service Centre Support</h3>
+    <p>Professional diagnostics, repairs, and maintenance from experienced technicians — helping businesses maintain productivity and reduce operational disruption.</p>
+  </div>
+  <a href="servicecentre.html" class="service-arrow">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+  </a>
+</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== COMMITMENT / CTA ===================== -->
+  <section id="commitment">
+    <div class="wrap">
+      <div class="commit reveal">
+        <h2>Reliability you can build your operations around.</h2>
+        <p>At Diesel Technical Solutions, we're committed to dependable service, professional expertise, and long-term support — helping you operate with confidence.</p>
+        <div class="cta-row">
+          <a href="#" class="btn btn-primary">Request Service</a>
+          <a href="#" class="btn btn-ghost">Our Services</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<iframe
+    src="footer.html"
+    width="100%"
+    height="400"
+    frameborder="0"
+    scrolling="no">
+</iframe>
+
+<script> src="script.js"</script>
+
+</body>
+</html>

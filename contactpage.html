@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact — Voltex Hardware</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="contact.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="navbar container">
+            <div class="brand">
+                <a class="logo" href="#"><img src="logo.jpg" alt="Logo"></a>
+                <div class="website-name">Diesel Technical Solutions</div>
+            </div>
+
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li class="dropdown">
+    <a href="#">Services ▾</a>
+
+    <ul class="dropdown-menu">
+        <li><a href="AMC.html">Annual Maintenance Contracts</a></li>
+        <li><a href="paid.html">On-Call & Pay-Per-Visit Support</a></li>
+        <li><a href="servicecenter.html">Service Centre Support</a></li>
+    </ul>
+</li>
+                    <li><a href="contactpage.html">Contact</a></li>
+                </ul>
+            </nav>
+
+            <button class="cta-header">Get a Quote</button>
+
+            <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+        </div>
+    </header>
+<div class="nx-orb nx-orb--a" aria-hidden="true"></div>
+<div class="nx-orb nx-orb--b" aria-hidden="true"></div>
+<div class="nx-orb nx-orb--c" aria-hidden="true"></div>
+
+<main class="nx-wrap">
+
+    <!-- Left panel -->
+    <aside class="nx-panel">
+        
+
+        <h1 class="nx-panel__headline">
+            Fast.<br>Reliable.<br><em>Hardware fix.</em>
+        </h1>
+
+        <p class="nx-panel__sub">
+            Drop us your details and we'll get back to you within a few hours.
+        </p>
+
+        <div class="nx-details">
+            <div class="nx-detail-item">
+                <span class="nx-detail-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="m2 7 10 7 10-7"/></svg>
+                </span>
+                <div>
+                    <span class="nx-detail-label">Email</span>
+                    <span class="nx-detail-value">dieseltechsolutions@zohomail.in</span>
+                </div>
+            </div>
+            <div class="nx-detail-item">
+                <span class="nx-detail-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 11.9 19.79 19.79 0 0 1 1.08 3.3 2 2 0 0 1 3.06 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16z"/></svg>
+                </span>
+                <div>
+                    <span class="nx-detail-label">Phone</span>
+                    <span class="nx-detail-value">+91 8121312253</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="nx-services-label">Our Services</div>
+        <div class="nx-chips">
+            <span class="nx-chip">Commissioning</span>
+            <span class="nx-chip">Engine Repair</span>
+            <span class="nx-chip">Oil Service</span>
+            <span class="nx-chip">Overhauling</span>
+            <span class="nx-chip">Annual Maintenance</span>
+            <span class="nx-chip">Electrical</span>
+            <span class="nx-chip">Fuel Leakage</span>
+        </div>
+    </aside>
+
+    <!-- Right panel -->
+    <section class="nx-form-panel">
+
+        <!-- Success overlay -->
+        <div class="nx-success" id="nxSuccess" aria-live="polite">
+            <div class="nx-success__inner">
+                <div class="nx-success__ring">
+                    <svg class="nx-success__check" viewBox="0 0 52 52" fill="none">
+                        <circle class="nx-check-circle" cx="26" cy="26" r="24" stroke="#4F8EF7" stroke-width="2"/>
+                        <path class="nx-check-mark" d="M14 26 L22 34 L38 18" stroke="#4F8EF7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <h2 class="nx-success__title">Request received!</h2>
+                <p class="nx-success__body">Our team will contact <span id="nxSenderEmail" class="nx-success__email"></span> shortly to confirm your booking.</p>
+                <button class="nx-success__btn" id="nxReset">Submit another</button>
+            </div>
+        </div>
+
+        <div class="nx-form-header">
+            <h2 class="nx-form-title">Book a service</h2>
+            <p class="nx-form-hint">All fields required</p>
+        </div>
+
+        <form id="nxForm" class="nx-form" novalidate>
+            <input type="hidden" name="access_key" value="5906fa1d-79d3-4075-9222-b341662fe8d4">
+
+            <div class="nx-row nx-row--2">
+                <div class="nx-field">
+                    <label class="nx-label" for="nxName">Full name</label>
+                    <div class="nx-input-wrap">
+                        <svg class="nx-input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+                        <input class="nx-input" type="text" id="nxName" name="name" placeholder="Your name" autocomplete="name" required>
+                    </div>
+                    <span class="nx-err" id="nxNameErr">Please enter your name</span>
+                </div>
+                <div class="nx-field">
+                    <label class="nx-label" for="nxPhone">Phone number</label>
+                    <div class="nx-input-wrap">
+                        <svg class="nx-input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 11.9 19.79 19.79 0 0 1 1.08 3.3 2 2 0 0 1 3.06 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16z"/></svg>
+                        <input class="nx-input" type="tel" id="nxPhone" name="phone" placeholder="+91 98765 43210" autocomplete="tel" required>
+                    </div>
+                    <span class="nx-err" id="nxPhoneErr">Please enter your phone</span>
+                </div>
+            </div>
+
+            <div class="nx-field">
+                <label class="nx-label" for="nxEmail">Email address</label>
+                <div class="nx-input-wrap">
+                    <svg class="nx-input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="m2 7 10 7 10-7"/></svg>
+                    <input class="nx-input" type="email" id="nxEmail" name="email" placeholder="you@email.com" autocomplete="email" required>
+                </div>
+                <span class="nx-err" id="nxEmailErr">Please enter a valid email</span>
+            </div>
+
+            <div class="nx-field">
+                <label class="nx-label" for="nxService">Purpose of contact</label>
+                <div class="nx-input-wrap nx-input-wrap--select">
+                    <svg class="nx-input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                    <select class="nx-input nx-select" id="nxService" name="service" required>
+                        <option value="" disabled selected>Purpose of contact…</option>
+                        <option value="commissioning">Commissioning</option>
+                        <option value="engine-not-starting">Engine Not Starting</option>
+                        <option value="oil-service">Oil Service Required</option>
+                        <option value="engine-dripping">Engine Dripping</option>
+                        <option value="engine-overhauling">Engine Overhauling</option>
+                        <option value="annual-maintenance">Annual Maintenance</option>
+                        <option value="general-maintenance">General Maintenance</option>
+                        <option value="oil-fuel-leakage">Oil and Fuel Leakage</option>
+                        <option value="abnormal-sound">Abnormal Sound</option>
+                        <option value="engine-overheating">Engine Overheating</option>
+                        <option value="electrical-issues">Electrical Issues</option>
+                    </select>
+                    <svg class="nx-select-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <span class="nx-err" id="nxServiceErr">Please select a service</span>
+            </div>
+
+            <div class="nx-field">
+                <label class="nx-label" for="nxMsg">Describe the issue</label>
+                <div class="nx-input-wrap nx-input-wrap--textarea">
+                    <svg class="nx-input-icon nx-input-icon--top" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    <textarea class="nx-input nx-textarea" id="nxMsg" name="message" rows="4" placeholder="e.g. Laptop not turning on, screen cracked, slow performance…" required></textarea>
+                </div>
+                <span class="nx-err" id="nxMsgErr">Please describe the issue</span>
+            </div>
+
+            <button class="nx-submit" type="submit" id="nxSubmit">
+                <span class="nx-submit__label">Submit to team</span>
+                <span class="nx-submit__spinner" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2a10 10 0 1 0 10 10"/></svg>
+                </span>
+                <svg class="nx-submit__arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+        </form>
+
+    </section>
+</main>
+<iframe
+    src="footer.html"
+    width="100%"
+    height="400"
+    frameborder="0"
+    scrolling="no">
+</iframe>
+<script src="script.js"></script>
+</body>
+</html>
